@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: asp-core-k8s-sample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: asp-core-k8s-sample
+  template:
+    metadata:
+      labels:
+        app: asp-core-k8s-sample
+    spec:
+      containers:
+      - name: asp-core-k8s-sample
+        image: aspcorek8sample:0.1 # Locally available container
+        imagePullPolicy: Never # Necessary for testing locally
+        ports:
+        - containerPort: 80
+        env:
+        - name: Database__ConnectionString
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: Database__ConnectionString
+        - name: Auth0__Domain
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: Auth0__Domain
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: asp-core-k8s-sample
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: asp-core-k8s-sample
