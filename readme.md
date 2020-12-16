@@ -14,3 +14,7 @@ It is able to:
 
 * [K8s friendly aspnetcore](https://github.com/Lybecker/k8s-friendly-aspnetcore)
 * [Deploying ASP.NET Core applications to Kubernetes](https://andrewlock.net/deploying-asp-net-core-applications-to-kubernetes-part-1-an-introduction-to-kubernetes/)
+
+### License
+
+MIT
