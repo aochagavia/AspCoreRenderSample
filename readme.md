@@ -8,8 +8,7 @@ It is able to:
 
 * TODO: Persist data protection keys (otherwise cookies would become invalid upon restarts)
 * Retrieve settings and secrets from the kubernetes cluster
-* TODO: handle probes
-* TODO: gracefully shutdown
+* Handle liveness probes
 * TODO: Target a local cluster for development or a remote cluster for deployment
 
 Things to figure out:

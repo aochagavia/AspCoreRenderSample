@@ -20,7 +20,7 @@ From the `src` directory, run the following commands:
 
 ```
 docker build --tag aspcorek8sample:0.1 .
-kubectl apply -f .\aspcorek8ssample.yaml
+kubectl apply -f ../infrastructure/aspcorek8ssample.yaml
 ```
 
 # Deploy to a remote cluster

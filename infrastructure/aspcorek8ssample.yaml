@@ -16,6 +16,12 @@ spec:
       - name: asp-core-k8s-sample
         image: aspcorek8sample:0.1 # Locally available container
         imagePullPolicy: Never # Necessary for testing locally
+        livenessProbe:
+          httpGet:
+            path: /Health
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 10
         ports:
         - containerPort: 80
         env:
