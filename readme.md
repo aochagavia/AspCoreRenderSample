@@ -6,7 +6,8 @@ kubernetes cluster.
 
 It is able to:
 
-* TODO: Persist data protection keys (otherwise cookies would become invalid upon restarts)
+* Persist data protection keys (using the EF Core provider)
+* TODO: encrypt data protection keys
 * Retrieve settings and secrets from the kubernetes cluster
 * Handle liveness probes
 * TODO: Target a local cluster for development or a remote cluster for deployment
