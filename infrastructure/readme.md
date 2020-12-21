@@ -11,7 +11,7 @@ kubectl create secret generic app-secrets --from-literal=Auth0_Domain=https://ex
 Create a self-signed X509 certificate using openssl (it will be used by ASP Core's data protection API):
 
 ```
-openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 36500 -nodes
 ```
 
 Store the secrets through kubectl:

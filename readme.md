@@ -15,7 +15,10 @@ It is able to:
 Things to figure out:
 
 * Do we really need to care about running the application from an unprivileged account?
-* Would it matter if our self-signed cert had an expiration date of 100 years? That way we don't have to rotate it... Otherwise we will probably have to look into automating cert rotation.
+
+Caveats:
+
+* ASP Core generates secret keys used for data protection purposes (e.g. cookies). These keys are encrypted at rest using a self-signed X509 certificate with an expiration date so far in the future that we are never forced to rotate it (though we _can_ in case it is necessary). While no enforced rotation might seem insecure, we are actually more secure than App Service, which doesn't encrypt the keys at rest.
 
 ### References
 
