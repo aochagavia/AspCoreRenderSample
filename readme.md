@@ -7,10 +7,10 @@ kubernetes cluster.
 It is able to:
 
 * Persist data protection keys (using the EF Core provider)
-* TODO: encrypt data protection keys
+* TODO: encrypt data protection keys (using a X509 certificate that is provided through kubernetes secrets)
 * Retrieve settings and secrets from the kubernetes cluster
 * Handle liveness probes
-* TODO: Target a local cluster for development or a remote cluster for deployment
+* TODO: Target a local cluster for development or a remote cluster for deployment (using Helm)
 
 Things to figure out:
 
