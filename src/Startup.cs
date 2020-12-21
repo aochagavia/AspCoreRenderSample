@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using AspCoreK8sSample.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using DataProtectionOptions = AspCoreK8sSample.Options.DataProtectionOptions;
 
 namespace AspCoreK8sSample
 {
@@ -25,6 +27,8 @@ namespace AspCoreK8sSample
                 .Bind(Configuration.GetSection("Database"));
             services.AddOptions<Auth0Options>()
                 .Bind(Configuration.GetSection("Auth0"));
+            services.AddOptions<DataProtectionOptions>()
+                .Bind(Configuration.GetSection("DataProtection"));
 
             ConfigureDataProtection(services);
 
@@ -38,10 +42,13 @@ namespace AspCoreK8sSample
             services.AddDbContext<KeysDbContext>(options =>
                 options.UseInMemoryDatabase("testDatabase"));
 
-            // TODO: configure encryption in one way or another providing the encryption key through an env var that we
-            // can store as a secret in k8s
+            var certPem = Configuration["DataProtection:Certificate"];
+            var keyPem = Configuration["DataProtection:PrivateKey"];
+
+            var cert = X509Certificate2.CreateFromPem(certPem, keyPem);
             services.AddDataProtection()
-                .PersistKeysToDbContext<KeysDbContext>();
+                .PersistKeysToDbContext<KeysDbContext>()
+                .ProtectKeysWithCertificate(cert);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

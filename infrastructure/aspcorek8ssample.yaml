@@ -35,6 +35,16 @@ spec:
             configMapKeyRef:
               name: app-config
               key: Auth0__Domain
+        - name: DataProtection__PrivateKey
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DataProtection__PrivateKey
+        - name: DataProtection__Certificate
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: DataProtection__Certificate
 ---
 apiVersion: v1
 kind: Service
