@@ -1,28 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: asp-core-k8s-sample
+  name: asp-core-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: asp-core-k8s-sample
+      app: asp-core-pod-template
   template:
     metadata:
       labels:
-        app: asp-core-k8s-sample
+        app: asp-core-pod-template
     spec:
       containers:
-      - name: asp-core-k8s-sample
-        image: aspcorek8sample:0.1 # Locally available container
-        imagePullPolicy: Never # Necessary for testing locally
-        startupProbe:
-          httpGet:
-            path: /Health
-            port: 80
-          initialDelaySeconds: 3
-          periodSeconds: 3
-          failureThreshold: 10 # the application has 30 seconds to start
+      - name: asp-core-app
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        # TODO: disabled the startup probe because it caused startup to take 90 seconds somehow...
+        # startupProbe:
+        #   httpGet:
+        #     path: /Health
+        #     port: 80
+        #   initialDelaySeconds: 3
+        #   periodSeconds: 3
+        #   timeoutSeconds: 1
+        #   failureThreshold: 10 # the application has 30 seconds to start
         ports:
         - containerPort: 80
         env:
@@ -46,14 +48,3 @@ spec:
             secretKeyRef:
               name: app-secrets
               key: DataProtection__Certificate
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: asp-core-k8s-sample
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 80
-  selector:
-    app: asp-core-k8s-sample

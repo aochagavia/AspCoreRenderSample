@@ -1,12 +1,12 @@
-# Config
+# Setup kubernetes configuration
 
-Create the auth0 config through kubectl:
+Create the fake auth0 config through kubectl:
 
 ```
-kubectl create secret generic app-secrets --from-literal=Auth0_Domain=https://example.com
+kubectl create configmap app-config --from-literal=Auth0__Domain=https://example.com
 ```
 
-# Secrets
+# Setup kubernetes secrets
 
 Create a self-signed X509 certificate using openssl (it will be used by ASP Core's data protection API):
 
@@ -20,18 +20,39 @@ Store the secrets through kubectl:
 kubectl create secret generic app-secrets --from-literal=Database__ConnectionString=dummy-string --from-file=DataProtection__PrivateKey=./key.pem --from-file=DataProtection__Certificate=./cert.pem
 ```
 
-# Deploy locally
+# Build the container image
 
-From the `src` directory, run the following commands:
+From the root directory, run the following command:
 
 ```
-docker build --tag aspcorek8sample:0.1 .
-kubectl apply -f ../infrastructure/aspcorek8ssample.yaml
+docker build --tag aspcorek8ssample:0.1 src
+```
+
+# Deploy locally
+
+Docker Desktop provides a local kubernetes cluster out of the box. The cluster has access to all
+your images, so if you followed the steps above you should be able to get up and running using
+the following command:
+
+```
+helm upgrade --install asp-core-app-release infrastructure/helm
 ```
 
 # Deploy to a remote cluster
 
-TODO:
+When deploying to a remote cluster, you will need to push your image to a registry first.
+In this example, I'll be using my own:
 
-* Publish the container to somewhere (somehow make the container name dependent on the target environment we are using)
-* Run `kubectl apply`
+```
+docker tag aspcorek8ssample:0.1 ochagavia/aspcorek8ssample:0.1
+docker push ochagavia/aspcorek8ssample:0.1
+```
+
+Afterwards, we can deploy it using helm, telling it to take the image from the registry
+(assuming you have selected the right context using `kubectl`):
+
+```
+helm upgrade --install asp-core-app-release infrastructure/helm --set image.repository="ochagavia/aspcorek8ssample" --set image.pullPolicy="Always"
+```
+
+Note: we are using "Always" as pull policy because that way we make sure the latest version of the image is used.

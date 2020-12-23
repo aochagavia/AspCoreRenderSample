@@ -1,0 +1,5 @@
+# Variables below assume we are targeting a k8s cluster with the image already available
+image:
+  repository: 'aspcorek8ssample'
+  tag: '0.1'
+  pullPolicy: 'Never'
