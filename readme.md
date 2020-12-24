@@ -6,11 +6,15 @@ kubernetes cluster.
 
 It is able to:
 
-* Persist data protection keys (using the EF Core provider)
-* Encrypt data protection keys (using a X509 certificate that is provided through kubernetes secrets)
+* Persist data protection keys to the database (using the EF Core provider)
+* Encrypt data protection keys at rest (using a X509 certificate that is provided through kubernetes secrets)
 * Retrieve settings and secrets from kubernetes
 * TODO: Use a startup probe to ensure the server is properly running before routing traffic to it
 * Pass parameters to our resource definitions so we can target local and remote deployments (using Helm)
+
+Next steps:
+
+* Deploy this to DigitalOcean and configure the load balancer to use automatic TLS with Let's Encrypt (see [this](https://www.digitalocean.com/docs/kubernetes/how-to/configure-load-balancers/) and [this](https://www.digitalocean.com/docs/networking/load-balancers/how-to/ssl-termination/#add-an-ssl-certificate))
 
 Things to figure out:
 
@@ -21,6 +25,7 @@ Some remarks:
 
 * ASP Core generates secret keys used for data protection purposes (e.g. cookies). These keys are encrypted at rest using a self-signed X509 certificate with an expiration date so far in the future that we are never forced to rotate it (though we _can_ in case it is necessary). While enforced rotation would be even more secure, it would require additional setup that we prefer to avoid. Besides, the current setup is already more secure than Azure's App Service defaults, which don't encrypt the keys at rest, so we assume that we are secure enough.
 * We explicitly choose to avoid readiness and liveness probes in this project. Based on the articles we have read, it seems like you should only use this feature once you experimentally discover you need it. Startup probes are enough to perform rolling updates without downtime.
+* The application is meant to run behind a load balancer that handles TLS termination for us. We explicitly use a load balancer service instead of an ingress to keep things as simple as possible.
 
 ### Building and deploying
 
