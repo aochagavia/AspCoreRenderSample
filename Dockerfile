@@ -3,11 +3,11 @@ WORKDIR /app
 
 # Copy csproj and restore as distinct layers
 COPY src/*.csproj ./
-RUN dotnet restore src
+RUN dotnet restore
 
 # Copy everything else and build
-COPY . ./
-RUN dotnet publish src -c Release -o out
+COPY src ./
+RUN dotnet publish -c Release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0.1-alpine3.12
