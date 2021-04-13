@@ -25,7 +25,7 @@ kubectl create secret generic app-secrets --from-literal=Database__ConnectionStr
 From the root directory, run the following command:
 
 ```
-docker build --tag aspcorek8ssample:0.1 src
+docker build --tag AspCoreRenderSample:0.1 src
 ```
 
 # Deploy locally
@@ -44,15 +44,15 @@ When deploying to a remote cluster, you will need to push your image to a regist
 In this example, I'll be using my own:
 
 ```
-docker tag aspcorek8ssample:0.1 ochagavia/aspcorek8ssample:0.1
-docker push ochagavia/aspcorek8ssample:0.1
+docker tag AspCoreRenderSample:0.1 ochagavia/AspCoreRenderSample:0.1
+docker push ochagavia/AspCoreRenderSample:0.1
 ```
 
 Afterwards, we can deploy it using helm, telling it to take the image from the registry
 (assuming you have selected the right context using `kubectl`):
 
 ```
-helm upgrade --install asp-core-app-release infrastructure/helm --set image.repository="ochagavia/aspcorek8ssample" --set image.pullPolicy="Always"
+helm upgrade --install asp-core-app-release infrastructure/helm --set image.repository="ochagavia/AspCoreRenderSample" --set image.pullPolicy="Always"
 ```
 
 Note: we are using "Always" as pull policy because that way we make sure the latest version of the image is used.

@@ -1,22 +1,20 @@
 ﻿using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
-using AspCoreK8sSample.Models;
-using AspCoreK8sSample.Options;
+using AspCoreRenderSample.Models;
+using AspCoreRenderSample.Options;
 using Microsoft.Extensions.Options;
 
-namespace AspCoreK8sSample.Controllers
+namespace AspCoreRenderSample.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IOptions<DatabaseOptions> _dbOptions;
-        private readonly IOptions<Auth0Options> _authOptions;
         private readonly IOptions<DataProtectionOptions> _dataProtectionOptions;
 
-        public HomeController(IOptions<DatabaseOptions> dbOptions, IOptions<Auth0Options> authOptions, IOptions<DataProtectionOptions> dataProtectionOptions)
+        public HomeController(IOptions<DatabaseOptions> dbOptions, IOptions<DataProtectionOptions> dataProtectionOptions)
         {
             _dbOptions = dbOptions;
-            _authOptions = authOptions;
             _dataProtectionOptions = dataProtectionOptions;
         }
 
@@ -27,7 +25,6 @@ namespace AspCoreK8sSample.Controllers
             return View(new IndexViewModel
             {
                 DbOptions = _dbOptions.Value,
-                Auth0Options = _authOptions.Value,
                 DataProtectionCertificate = cert,
             });
         }

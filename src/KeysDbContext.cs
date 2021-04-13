@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AspCoreK8sSample
+namespace AspCoreRenderSample
 {
     class KeysDbContext : DbContext, IDataProtectionKeyContext
     {

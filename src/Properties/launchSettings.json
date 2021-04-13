@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "AspCoreK8sSample": {
+    "AspCoreRenderSample": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

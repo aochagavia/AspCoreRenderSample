@@ -1,4 +1,4 @@
-namespace AspCoreK8sSample.Options
+namespace AspCoreRenderSample.Options
 {
     public class DataProtectionOptions
     {

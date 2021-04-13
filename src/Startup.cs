@@ -1,5 +1,5 @@
 using System.Security.Cryptography.X509Certificates;
-using AspCoreK8sSample.Options;
+using AspCoreRenderSample.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using DataProtectionOptions = AspCoreK8sSample.Options.DataProtectionOptions;
+using DataProtectionOptions = AspCoreRenderSample.Options.DataProtectionOptions;
 
-namespace AspCoreK8sSample
+namespace AspCoreRenderSample
 {
     public class Startup
     {
@@ -25,8 +25,6 @@ namespace AspCoreK8sSample
         {
             services.AddOptions<DatabaseOptions>()
                 .Bind(Configuration.GetSection("Database"));
-            services.AddOptions<Auth0Options>()
-                .Bind(Configuration.GetSection("Auth0"));
             services.AddOptions<DataProtectionOptions>()
                 .Bind(Configuration.GetSection("DataProtection"));
 
