@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>AspCoreRenderSample</AssemblyName>
-    <RootNamespace>AspCoreRenderSample</RootNamespace>
+    <AssemblyName>AspCoreFlySample</AssemblyName>
+    <RootNamespace>AspCoreFlySample</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,11 +1,11 @@
 ﻿using System.Diagnostics;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
-using AspCoreRenderSample.Models;
-using AspCoreRenderSample.Options;
+using AspCoreFlySample.Models;
+using AspCoreFlySample.Options;
 using Microsoft.Extensions.Options;
 
-namespace AspCoreRenderSample.Controllers
+namespace AspCoreFlySample.Controllers
 {
     public class HomeController : Controller
     {
@@ -20,12 +20,14 @@ namespace AspCoreRenderSample.Controllers
 
         public IActionResult Index()
         {
-            var cert = X509Certificate2.CreateFromPem(_dataProtectionOptions.Value.Certificate, _dataProtectionOptions.Value.PrivateKey);
+            // var cert = X509Certificate2.CreateFromPem(_dataProtectionOptions.Value.Certificate, _dataProtectionOptions.Value.PrivateKey);
 
             return View(new IndexViewModel
             {
                 DbOptions = _dbOptions.Value,
-                DataProtectionCertificate = cert,
+                CertString = _dataProtectionOptions.Value.Certificate,
+                PrivateKeyString = _dataProtectionOptions.Value.PrivateKey
+                // DataProtectionCertificate = cert,
             });
         }
 

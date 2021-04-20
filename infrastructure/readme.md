@@ -1,12 +1,4 @@
-# Setup kubernetes configuration
-
-Create the fake auth0 config through kubectl:
-
-```
-kubectl create configmap app-config --from-literal=Auth0__Domain=https://example.com
-```
-
-# Setup kubernetes secrets
+# Setup the X509 certificate
 
 Create a self-signed X509 certificate using openssl (it will be used by ASP Core's data protection API):
 
@@ -14,45 +6,18 @@ Create a self-signed X509 certificate using openssl (it will be used by ASP Core
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 36500 -nodes
 ```
 
-Store the secrets through kubectl:
+# Deploy to Fly.io
+
+Make sure the X509 certificate is available to Fly.io through the app secrets:
 
 ```
-kubectl create secret generic app-secrets --from-literal=Database__ConnectionString=dummy-string --from-file=DataProtection__PrivateKey=./key.pem --from-file=DataProtection__Certificate=./cert.pem
+cat key.pem | flyctl secrets set DataProtection__PrivateKey=-
+cat cert.pem | flyctl secrets set DataProtection__Certificate=-
 ```
 
-# Build the container image
+Deploy using `flyctl deploy`.
 
-From the root directory, run the following command:
+# Run locally
 
-```
-docker build --tag AspCoreRenderSample:0.1 src
-```
-
-# Deploy locally
-
-Docker Desktop provides a local kubernetes cluster out of the box. The cluster has access to all
-your images, so if you followed the steps above you should be able to get up and running using
-the following command:
-
-```
-helm upgrade --install asp-core-app-release infrastructure/helm
-```
-
-# Deploy to a remote cluster
-
-When deploying to a remote cluster, you will need to push your image to a registry first.
-In this example, I'll be using my own:
-
-```
-docker tag AspCoreRenderSample:0.1 ochagavia/AspCoreRenderSample:0.1
-docker push ochagavia/AspCoreRenderSample:0.1
-```
-
-Afterwards, we can deploy it using helm, telling it to take the image from the registry
-(assuming you have selected the right context using `kubectl`):
-
-```
-helm upgrade --install asp-core-app-release infrastructure/helm --set image.repository="ochagavia/AspCoreRenderSample" --set image.pullPolicy="Always"
-```
-
-Note: we are using "Always" as pull policy because that way we make sure the latest version of the image is used.
+Development uses a X509 certificate that is already configured (see `appsettings.Development.json`), so it should be enough to just run the
+application from your favourite IDE or using `dotnet run`.

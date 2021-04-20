@@ -13,4 +13,4 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:5.0.1-alpine3.12
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "AspCoreRenderSample.dll"]
+ENTRYPOINT ["dotnet", "AspCoreFlySample.dll"]

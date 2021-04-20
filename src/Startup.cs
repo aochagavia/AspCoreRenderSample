@@ -1,5 +1,5 @@
 using System.Security.Cryptography.X509Certificates;
-using AspCoreRenderSample.Options;
+using AspCoreFlySample.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using DataProtectionOptions = AspCoreRenderSample.Options.DataProtectionOptions;
+using DataProtectionOptions = AspCoreFlySample.Options.DataProtectionOptions;
 
-namespace AspCoreRenderSample
+namespace AspCoreFlySample
 {
     public class Startup
     {
@@ -28,7 +28,7 @@ namespace AspCoreRenderSample
             services.AddOptions<DataProtectionOptions>()
                 .Bind(Configuration.GetSection("DataProtection"));
 
-            ConfigureDataProtection(services);
+            // ConfigureDataProtection(services);
 
             services.AddControllersWithViews();
         }

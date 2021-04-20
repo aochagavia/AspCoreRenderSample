@@ -1,6 +1,6 @@
 using System;
 
-namespace AspCoreRenderSample.Models
+namespace AspCoreFlySample.Models
 {
     public class ErrorViewModel
     {

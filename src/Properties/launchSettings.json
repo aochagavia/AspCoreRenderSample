@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "AspCoreRenderSample": {
+    "AspCoreFlySample": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

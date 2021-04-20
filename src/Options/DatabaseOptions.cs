@@ -1,4 +1,4 @@
-namespace AspCoreRenderSample.Options
+namespace AspCoreFlySample.Options
 {
     public class DatabaseOptions
     {

@@ -1,11 +1,13 @@
 using System.Security.Cryptography.X509Certificates;
-using AspCoreRenderSample.Options;
+using AspCoreFlySample.Options;
 
-namespace AspCoreRenderSample.Models
+namespace AspCoreFlySample.Models
 {
     public class IndexViewModel
     {
         public DatabaseOptions DbOptions { get; set; }
-        public X509Certificate2 DataProtectionCertificate { get; set; }
+        public string CertString { get; set; }
+        public string PrivateKeyString { get; set; }
+        // public X509Certificate2 DataProtectionCertificate { get; set; }
     }
 }

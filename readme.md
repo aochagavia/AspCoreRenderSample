@@ -1,8 +1,8 @@
-# AspCoreRenderSample
+# AspCoreFlySample
 
-This repository shows a minimal ASP Core MVC application meant to run on the Render platform.
+This repository shows a minimal ASP Core MVC application meant to run on the Fly.io platform.
 It has been initialized using `dotnet new mvc` and slightly modified to be deployable to
-Render as a Docker container.
+Fly.io as a Docker container.
 
 It is able to:
 
